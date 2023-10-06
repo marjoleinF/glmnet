@@ -113,7 +113,7 @@ cv.relaxed.raw <-
         outstuff=outstuff[1:lengamma]
         gamma=gamma[1:lengamma]
         }
-    relaxed=list(statlist=outstuff,gamma=gamma, betas=)
+    relaxed=list(statlist=outstuff,gamma=gamma)
     lamin=getOptcv.relaxed(outstuff,cvname,gamma)
     relaxed=  c(relaxed, as.list(lamin))# for relaxed part
     lamin=with(out,getOptcv.glmnet(lambda, cvm, cvsd, cvname))
