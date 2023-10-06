@@ -1,7 +1,7 @@
 Package: glmnet
 Type: Package
 Title: Lasso and Elastic-Net Regularized Generalized Linear Models
-Version: 4.1-8
+Version: 4.1-8x
 Date: 2023-08-19
 Authors@R: c(person("Jerome", "Friedman", role=c("aut")),
 	     person("Trevor", "Hastie", role=c("aut", "cre"), email = "hastie@stanford.edu"),
