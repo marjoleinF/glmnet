@@ -67,6 +67,11 @@ cv.relaxed.raw <-
                weights = weights[!which],trace.it=trace.it, ...)
     }
   }
+  
+  ## ADDITION: Extract coefficient paths here, from outlist[[1 through i]]
+  ## It is contained in outlist[[i]]$beta
+  betas <- sapply(outlist, \(x) x$beta)
+  
   lambda = glmnet.object$lambda
   class(outlist)=paste0(subclass,"list")
   predmatlist=as.list(gamma)
@@ -108,6 +113,10 @@ cv.relaxed.raw <-
   if (keep)
       out = c(out, list(fit.preval = predmatlist, foldid = foldid))
     out$relaxed=relaxed
+    
+  ## ADDITION
+  out$betas <- betas
+    
   class(out) = c("cv.relaxed","cv.glmnet")
   out
 }
