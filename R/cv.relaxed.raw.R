@@ -1,3 +1,8 @@
+## Need to get betas for the full lambda path from each fold, for each value of gamma.
+
+
+
+
 cv.relaxed.raw <-
     function (x, y, weights, offset, lambda, type.measure, nfolds, foldid, alignment,grouped, keep,
               parallel, trace.it, glmnet.call, cv.call, gamma, ...)
@@ -68,9 +73,12 @@ cv.relaxed.raw <-
     }
   }
   
-  ## ADDITION: Extract coefficient paths here, from outlist[[1 through i]]
+  ## ADDITIONS!!!! Extract coefficient paths here, from outlist[[1 through i]]
   ## It is contained in outlist[[i]]$beta
+  ## Standard glmnet:
   betas <- sapply(outlist, \(x) x$beta)
+  ## Relaxed glmnet (gives only betas for gamma = 0, the unpenalized fit):
+  betas_relaxed <- sapply(outlist, \(x) x$relaxed$beta)
   
   lambda = glmnet.object$lambda
   class(outlist)=paste0(subclass,"list")
@@ -105,7 +113,7 @@ cv.relaxed.raw <-
         outstuff=outstuff[1:lengamma]
         gamma=gamma[1:lengamma]
         }
-    relaxed=list(statlist=outstuff,gamma=gamma)
+    relaxed=list(statlist=outstuff,gamma=gamma, betas=)
     lamin=getOptcv.relaxed(outstuff,cvname,gamma)
     relaxed=  c(relaxed, as.list(lamin))# for relaxed part
     lamin=with(out,getOptcv.glmnet(lambda, cvm, cvsd, cvname))
@@ -114,8 +122,9 @@ cv.relaxed.raw <-
       out = c(out, list(fit.preval = predmatlist, foldid = foldid))
     out$relaxed=relaxed
     
-  ## ADDITION
+  ## ADDITIONS!!!
   out$betas <- betas
+  out$betas_relaxed <- betas_relaxed
     
   class(out) = c("cv.relaxed","cv.glmnet")
   out
