@@ -79,7 +79,6 @@ cv.glmnet.raw <- function (x, y, weights, offset, lambda, type.measure, nfolds,
     grouped = FALSE
   }
   
-  ## TODO: Add coefficient paths to out
   out = cvstats(cvstuff, foldid, nfolds, lambda, nz, grouped)
   cvname = names(cvstuff$type.measure)
   names(cvname) = cvstuff$type.measure
